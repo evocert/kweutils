@@ -216,7 +216,7 @@ try{
 		}else{
 			//--- server
 			require.config({
-				baseUrl:"./www/security/sjs/test/",
+				baseUrl:"./www/kweutils/",
 				paths:{
 					"db":"lib/core/db.goja",
 					"class":"lib/core/class.goja",
