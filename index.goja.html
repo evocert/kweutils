@@ -1,0 +1,77 @@
+<@
+	try{
+		var GOJA=true;
+		var DBALIAS='mydb';
+		var LOOPDB=false;
+		request.ResponseHeader().Set("Content-Type","application/json");
+		eval(fsutils.File2String('./www/kweutils/lib/core/require.goja.js'));
+			//--- server
+			require.config({
+				baseUrl:"./www/kweutils/",
+				paths:{
+					"db":"lib/core/db.goja",
+					"class":"lib/core/class.goja",
+					"idutils":"lib/core/idutils",
+					"request":"lib/core/request.goja",
+					"console":"lib/core/console",
+					"alert":"lib/core/alert",
+					"Promise":"lib/core/Promise.goja",
+					"Application":"lib/system/Application",
+					"Module":"lib/system/Module",
+					"System":"lib/system/System",
+					"RemoteObject":"lib/system/RemoteObject",
+					'html':'lib/html/html',
+					'node':'lib/html/node',
+					'underscore':'lib/vendor/underscore/underscore',
+				}
+			});
+			require([
+				'request',
+				'console',
+				'alert',
+				'Promise',
+				'System',
+				'Module',
+				'RemoteObject',
+				'Application',
+				'db',
+				'html',
+				'idutils',
+				'node',
+				'underscore'
+			],function(request,console,alert,Promise,System,Module,RemoteObject,Application,db,Html,idutils,Node,_){
+				console.time('dom building');
+				console.timeLog('dom building');
+				println(
+					(new Node({tag:"html"}).attr('id',idutils.uuidv4())
+					).append([
+						new Node({tag:"head"}).attr('id',idutils.uuidv4()).append([
+							new Node({tag:"meta"}).attr('charset','utf-8').attr('id',idutils.uuidv4()),
+							new Node({tag:"style"}).attr('id',idutils.uuidv4()).text('*{background:#000000;color:#00FF00;}')
+						]),
+						new Node({tag:"body"}).append([
+							new Node({tag:'h3'}).attr('id',idutils.uuidv4()).text('lib/html/node.js test'),
+							new Node({tag:'p'}).attr('id',idutils.uuidv4()).append((function(){
+								var ret=[];
+								for(var i=0;i<32;i++){
+									ret.push(new Node({tag:"pre"}).attr('id',idutils.uuidv4()).text((function(){
+										var ret=[];
+										for(var i=0;i<32;i++){
+											ret.push(idutils.uuidv4());
+										}
+										return ret.join('\n');
+									})()));
+								}
+								return ret;
+							})())
+						])
+					])
+					.toString()
+				);
+				console.timeLog('dom building');
+				console.timeEnd('dom building');
+			});
+	}catch(e){
+		println(e.toString());
+	}
+@>
