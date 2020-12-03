@@ -3,16 +3,45 @@ try{
 	//globals
 	//--------------------------------------------------------------------------------
 	var DBALIAS='mydb';
-	var LOOPDB=false;
+	var LOOPDB=true;
 	//--------------------------------------------------------------------------------
 	//main function
 	//--------------------------------------------------------------------------------
-	function main(args){
-		//copy args to context
-		Object.keys(args).forEach((function(k){
-			if(k!='console')this[k]=args[k];//:(
-		}).bind(this));
-		var console=args.console;
+	//--- browser
+	require.config({
+		urlArgs: "cachebust="+(new Date()).getTime(),
+		paths:{
+			"db":"lib/core/db",
+			"class":"lib/core/class.goja",
+			"console":"lib/core/console",
+			"idutils":"lib/core/idutils",
+			"Application":"lib/system/Application",
+			"Module":"lib/system/Module",
+			"System":"lib/system/System",
+			'jquery':'lib/vendor/jquery/jquery',
+			'jquery-private':'lib/vendor/jquery/jquery-private',
+			'underscore':'lib/vendor/underscore/underscore',
+		},
+		map:{
+			'*':{'jquery':'jquery-private'},
+			'jquery-private':{'jquery':'jquery'}
+		}
+	});
+	require([
+		'console',
+		'System',
+		'Module',
+		'Application',
+		'db',
+		'underscore',
+	],function(console,System,Module,Application,db,_){
+		console.log('main:');
+		console.log(_);
+		var DBALIAS='mydb';
+		var LOOPDB=true;
+		//--------------------------------------------------------------------------------
+		//main function
+		//--------------------------------------------------------------------------------
 		//--underscore test - begin
 		_.each([1,2,3],console.log);
 		console.log(_.map([1,2,3],function(num){return num*3;}));
@@ -172,96 +201,7 @@ try{
 		//console.log(sysmgr.serialize());
 		console.log(sysmgr.serialize());
 		console.log([t1-t0,'ms'].join(''));
-	};
-	//--------------------------------------------------------------------------------
-	//entry point: initialize: detect js environment and do specific setup
-	//--------------------------------------------------------------------------------
-	function init(){
-		if(typeof(GOJA)=='undefined'){
-			//--- browser
-			require.config({
-				urlArgs: "cachebust="+(new Date()).getTime(),
-				paths:{
-					"db":"lib/core/db",
-					"class":"lib/core/class.goja",
-					"console":"lib/core/console",
-					"idutils":"lib/core/idutils",
-					"Application":"lib/system/Application",
-					"Module":"lib/system/Module",
-					"System":"lib/system/System",
-					'jquery':'lib/vendor/jquery/jquery',
-					'jquery-private':'lib/vendor/jquery/jquery-private',
-					'underscore':'lib/vendor/underscore/underscore',
-				},
-				map:{
-					'*':{'jquery':'jquery-private'},
-					'jquery-private':{'jquery':'jquery'}
-				}
-			});
-			require([
-				'System',
-				'Module',
-				'Application',
-				'db',
-				'underscore',
-			],function(System,Module,Application,db,_){
-				console.log(_);
-				//enter main
-				main({
-					console:console,
-					Promise:Promise,
-					System:System,
-					Module:Module,
-					Application:Application,
-					db:db,
-					_:_
-				});
-			});
-
-		}else{
-			//--- server
-			require.config({
-				baseUrl:"./www/kweutils/",
-				paths:{
-					"db":"lib/core/db.goja",
-					"class":"lib/core/class.goja",
-					"idutils":"lib/core/idutils",
-					"console":"lib/core/console",
-					"Promise":"lib/core/Promise.goja",
-					"Application":"lib/system/Application",
-					"Module":"lib/system/Module",
-					"System":"lib/system/System",
-					'underscore':'lib/vendor/underscore/underscore',
-				}
-			});
-			require([
-				'console',
-				'Promise',
-				'System',
-				'Module',
-				'Application',
-				'db',
-				'underscore'
-			],function(console,Promise,System,Module,Application,db,underscore){
-				//enter main
-				main({
-					console:{
-						log:function(val){  println(new Date()+" LOG:   "+(typeof(val)=='object'?JSON.stringify(val):val))},
-						warn:function(val){ println(new Date()+" WARN:  "+(typeof(val)=='object'?JSON.stringify(val):val))},
-						debug:function(val){println(new Date()+" DEBUG: "+(typeof(val)=='object'?JSON.stringify(val):val))},
-						error:function(val){println(new Date()+" ERROR: "+(typeof(val)=='object'?JSON.stringify(val):val))},
-					},//console,
-					Promise:Promise,
-					System:System,
-					Module:Module,
-					Application:Application,
-					db:db,
-					_:underscore
-				});
-			});
-		}
-	}
-	init();
+	});
 }catch(e){
 	console.log(e.toString());
 }
