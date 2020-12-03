@@ -3,12 +3,12 @@ try{
 	//globals
 	//--------------------------------------------------------------------------------
 	var DBALIAS='mydb';
+	var LOOPDB=false;
 	//--------------------------------------------------------------------------------
 	//main function
 	//--------------------------------------------------------------------------------
-	//function main(console,Promise,System,Module,Application,db){
 	function main(args){
-		//copy args to this
+		//copy args to context
 		Object.keys(args).forEach((function(k){
 			if(k!='console')this[k]=args[k];//:(
 		}).bind(this));
@@ -29,8 +29,8 @@ try{
 		console.log(_.min([{name:'moe',age:40},{name:'larry',age:50},{name:'curly',age:60}],function(stooge){return stooge.age}));
 		//--underscore test - end
 		//--database test - begin
-		var recloop;
-		recloop=function(){
+		var dbtst;
+		dbtst=function(){
 			console.log('Initializing database');
 			db.exec(
 				DBALIAS,
@@ -102,9 +102,10 @@ try{
 						console.error('failed to parse system');
 					}
 				});
+				if(LOOPDB)dbtst();
 			});
 		}
-		recloop();
+		dbtst();
 		//--database test - end
 		return;
 		//--------------------------------------------------------------------------------
