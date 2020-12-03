@@ -3,7 +3,7 @@ Various utilities, index.html for browser, and main.goja.js for server.
 
 Instructions: deploy to public webdirectory and make the following adjustments...
 
-For Goja, in main.goja.js, ensure you adjust the paths as needed
+For Goja, in index.goja.html, ensure you adjust the paths as needed
 ```
 ...
 var GOJA=true;
