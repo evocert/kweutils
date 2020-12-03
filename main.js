@@ -1,5 +1,9 @@
 try{
 	//--------------------------------------------------------------------------------
+	//globals
+	//--------------------------------------------------------------------------------
+	var DBALIAS='mydb';
+	//--------------------------------------------------------------------------------
 	//main function
 	//--------------------------------------------------------------------------------
 	//function main(console,Promise,System,Module,Application,db){
@@ -29,13 +33,13 @@ try{
 		recloop=function(){
 			console.log('Initializing database');
 			db.exec(
-				'mydb',
+				DBALIAS,
 				"create table if not exists system(a varchar,b varchar)",
 				[{}]
 			).then(function(data){
 				console.log('Removing systems');
 				return db.exec(
-					'mydb',
+					DBALIAS,
 					"delete from system",
 					[{}]
 				);
@@ -73,7 +77,7 @@ try{
 				);
 				console.log('Committing system');
 				return db.exec(
-					'mydb',
+					DBALIAS,
 					"insert into system values(@@A@@,@@B@@)",
 					[{
 						A:sys.id,
@@ -83,7 +87,7 @@ try{
 			}).then(function(data){
 				console.log('Retrieving system');
 				return db.query(
-					'mydb',
+					DBALIAS,
 					"select * from system",
 					[{}]
 				);

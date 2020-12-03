@@ -18,3 +18,4 @@ require.config({
 ...
 ```
 
+In main.js, DBALIAS may be adjusted to a configured alias
