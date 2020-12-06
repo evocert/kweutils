@@ -2,9 +2,41 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<script data-main="./main.js" src="./lib/core/require.js" async></script>
+		<script src="./lib/core/require.js"></script>
 		<link rel="stylesheet" href="./css/style.css"/>
 	</head>
 	<body>
+		<script>
+			try{
+				require.config({
+					urlArgs: "cachebust="+(new Date()).getTime(),
+					paths:{
+						"db":"lib/core/db",
+						"class":"lib/core/class.goja",
+						"idutils":"lib/core/idutils",
+						"request":"lib/core/request.goja",
+						"console":"lib/core/console",
+						"document":"lib/core/document",
+						"alert":"lib/core/alert",
+						"Promise":"lib/core/Promise.goja",
+						"Application":"lib/system/Application",
+						"Module":"lib/system/Module",
+						"System":"lib/system/System",
+						"RemoteObject":"lib/system/RemoteObject",
+						'jquery':'lib/vendor/jquery/jquery',
+						'jquery-private':'lib/vendor/jquery/jquery-private',
+						'underscore':'lib/vendor/underscore/underscore',
+					},
+					map:{
+						'*':{'jquery':'jquery-private'},
+						'jquery-private':{'jquery':'jquery'}
+					}
+				});
+				require(['tests/html'],function(h,s){});
+			}catch(e){
+				console.log(e.toString());
+			}
+		</script>
 	</body>
 </html>
+
