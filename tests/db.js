@@ -1,73 +1,69 @@
-/*
-request.ResponseHeader().Set("Content-Type","application/json");
-request.ResponseHeaders().forEach(function(a,b){
-        println([a,request.ResponseHeader().Get(a)].join(":"));
-});
-request.ResponseHeader().Set("Content-Type","application/json");
-*/
-
 require([
 	'console',
+	'document',
 	'Promise',
 	'alert',
 	'idutils',
 	'db'
-],function(console,Promise,alert,idutils,db){
-	var DBALIAS='mydb';
+],function(console,document,Promise,alert,idutils,db){
+	document.head.append((function(){
+		var el=document.createElement('style');
+		el.innerText='*{background:#000000;color:#00FF00;font-family:monospace;}';
+		return el;
+	})());
+	function addline(val){
+		var el=document.createElement('div');
+		el.innerText=typeof(val)=='object'?JSON.stringify(val):val;
+		document.body.append(el);
+	}
+	//var DBALIAS='pg';
+	//var DBALIAS='pgr';
+	//var DBALIAS='mysql';
+	var DBALIAS='mysqlr';
 	var LOOPDB=false;
 	var dbtst;
 	dbtst=function(){
-		console.log('Dropping table');
+		addline('Dropping table');
 		db.exec(
 			DBALIAS,
-			"drop table test",
+			"drop table if exists test",
 			[{}]
 		).then(function(data){
-			console.log('Creating table');
-			return db.exec(
+			addline('Creating table');
+			db.exec(
 				DBALIAS,
-				"create table if not exists test(a varchar,b varchar)",
+				//"create table if not exists test(a varchar,b varchar)",
+				"create table if not exists test(a varchar(128),b varchar(128))",
 				[{}]
-			);
-		}).then(function(data){
-			console.log('Removing rows');
-			return db.exec(
-				DBALIAS,
-				"delete from test",
-				[{}]
-			);
-		}).then(function(data){
-			console.log('Creating rows');
-			var pbuf=[];
-			for(var i=0;i<32;i++){
-				pbuf.push(db.exec(
+			).then(function(data){
+				addline('Removing rows');
+				db.exec(
 					DBALIAS,
-					"insert into test values(@@A@@,@@B@@)",
-					[{
-						A:idutils.uuidv4(),
-						B:idutils.uuidv4()
-					}]
-				));
-			}
-			return Promise.all(pbuf);
-		}).then(function(data){
-			console.log('Retrieving rows');
-			return db.query(
-				DBALIAS,
-				"select * from test",
-				[{}]
-			);
-		}).then(function(res){
-			res.rows.forEach(function(row){
-				try{
-					console.log(row,0,2);
-					//recloop();
-				}catch(e){
-					console.error(e.toString());
-				}
-			});
-			if(LOOPDB)dbtst();
-		});
+					"delete from test",
+					[{}]
+				).then(function(data){
+					addline('Creating rows');
+					db.exec(
+							DBALIAS,
+							"insert into test values(@@A@@,@@B@@)",
+							[{
+								A:idutils.uuidv4(),
+								B:idutils.uuidv4()
+							}]
+					).then(function(){
+						addline('Retrieving rows');
+						db.query(
+							DBALIAS,
+							"select * from test",
+							[{}]
+						).then(function(res){
+							addline(res);
+							document.close(res);
+						});
+					});
+				})
+			})
+		})
 	}
 	dbtst();
 });

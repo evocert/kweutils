@@ -1,5 +1,5 @@
 # kweutils
-Various utilities, index.html for browser, and index.goja.html for server.
+Various utilities, browser.html for browser, and goja.html for server.
 
 Instructions: deploy to public webdirectory and make the following adjustments...
 

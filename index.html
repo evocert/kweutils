@@ -1,42 +1,70 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<script src="./lib/core/require.js"></script>
+		<meta charset="utf-8"/>
+		<title>
+			Tests
+		</title>
 		<link rel="stylesheet" href="./css/style.css"/>
+		<script src="./lib/core/require.js"></script>
 	</head>
 	<body>
 		<script>
-			try{
-				require.config({
-					urlArgs: "cachebust="+(new Date()).getTime(),
-					paths:{
-						"db":"lib/core/db",
-						"class":"lib/core/class.goja",
-						"idutils":"lib/core/idutils",
-						"request":"lib/core/request.goja",
-						"console":"lib/core/console",
-						"document":"lib/core/document",
-						"alert":"lib/core/alert",
-						"Promise":"lib/core/Promise.goja",
-						"Application":"lib/system/Application",
-						"Module":"lib/system/Module",
-						"System":"lib/system/System",
-						"RemoteObject":"lib/system/RemoteObject",
-						'jquery':'lib/vendor/jquery/jquery',
-						'jquery-private':'lib/vendor/jquery/jquery-private',
-						'underscore':'lib/vendor/underscore/underscore',
-					},
-					map:{
-						'*':{'jquery':'jquery-private'},
-						'jquery-private':{'jquery':'jquery'}
-					}
+		try{
+			require.config({
+				urlArgs: "cachebust="+(new Date()).getTime(),
+				paths:{
+					'jquery':'lib/vendor/jquery/jquery',
+					'jquery-private':'lib/vendor/jquery/jquery-private'
+				},
+				map:{
+					'*':{'jquery':'jquery-private'},
+					'jquery-private':{'jquery':'jquery'}
+				}
+			});
+			require(['jquery'],function(jq){
+				var tests=[
+					"tests/console",
+					"tests/ctor",
+					"tests/db",
+					"tests/factory",
+					"tests/html",
+					"tests/mod",
+					"tests/remoteobject",
+					"tests/system",
+					"tests/underscore"
+				];
+				jq("body").append(jq("<h3/>").text("Tests:"));
+				jq("body").append(jq("<hr/>"));
+				var tbl=jq("<table/>");
+				tbl.append(
+					jq("<tr/>").append(
+						jq("<th/>").text("Browser")
+					).append(
+						jq("<th/>").text("Goja")
+					)
+				);
+				tests.forEach(function(t){
+					tbl.append(
+						jq("<tr/>")
+						.append(
+							jq("<td/>").append(
+								jq("<a/>").attr("href","./browser.html?test="+t).text(t)
+							)
+						)
+						.append(
+							jq("<td/>").append(
+								jq("<a/>").attr("href","./goja.html?test="+t).text(t)
+							)
+						)
+					)
 				});
-				require(['tests/html'],function(h,s){});
-			}catch(e){
-				console.log(e.toString());
-			}
+				jq("body").append(tbl);
+				jq("body").append(jq("<hr/>"));
+			});
+		}catch(e){
+			console.log(e.toString());
+		}
 		</script>
 	</body>
 </html>
-

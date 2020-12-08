@@ -1,12 +1,4 @@
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define('underscore', factory) :
-  (global = global || self, (function () {
-    var current = global._;
-    var exports = global._ = factory();
-    exports.noConflict = function () { global._ = current; return exports; };
-  }()));
-}(this, (function () {
+define([],function () {
   //     Underscore.js 1.12.0
   //     https://underscorejs.org
   //     (c) 2009-2020 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -2017,6 +2009,4 @@
   _$1._ = _$1;
 
   return _$1;
-
-})));
-//# sourceMappingURL=underscore.js.map
+});

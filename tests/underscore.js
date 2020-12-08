@@ -1,15 +1,18 @@
+
 define([
 	'console',
 	'document',
 	'html',
 	'node',
 	'idutils',
+	'underscore',
 ],function(
 	console,
 	document,
 	Html,
 	Node,
 	idutils,
+	underscore
 ){
 	console.time('dom building');
 	var html=(new Node({tag:"html"}).attr('id',idutils.uuidv4())).append([

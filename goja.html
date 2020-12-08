@@ -1,0 +1,36 @@
+<@
+	GOJA=true;
+	try{
+		eval(fsutils.File2String('./www/kweutils/lib/core/require.js'));
+		require.config({
+			baseUrl:"./www/kweutils/",
+			paths:{
+				"db":"lib/core/db.goja",
+				"class":"lib/core/class.goja",
+				"idutils":"lib/core/idutils",
+				"request":"lib/core/request.goja",
+				"console":"lib/core/console",
+				"document":"lib/core/document",
+				"alert":"lib/core/alert",
+				"Promise":"lib/core/Promise.goja",
+				"Application":"lib/system/Application",
+				"Module":"lib/system/Module",
+				"System":"lib/system/System",
+				"RemoteObject":"lib/system/RemoteObject",
+				'html':'lib/html/html',
+				'node':'lib/html/node',
+				'underscore':'lib/vendor/underscore/underscore',
+			}
+		});
+		require(['request','alert'],function(request,alert){
+			var test=request.tojson().parameters["TEST"];
+			if(test!=null){
+				require([test],function(){});
+			}else{
+				alert('no test specified');
+			}
+		});
+	}catch(e){
+		println(e.toString());
+	}
+@>
