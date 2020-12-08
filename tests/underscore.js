@@ -1,44 +1,34 @@
 
 define([
 	'console',
+	'alert',
 	'document',
 	'html',
 	'node',
-	'idutils',
 	'underscore',
 ],function(
 	console,
+	alert,
 	document,
 	Html,
 	Node,
-	idutils,
-	underscore
+	_
 ){
-	console.time('dom building');
-	var html=(new Node({tag:"html"}).attr('id',idutils.uuidv4())).append([
-		new Node({tag:"head"}).attr('id',idutils.uuidv4()).append([
-			new Node({tag:"meta"}).attr('charset','utf-8').attr('id',idutils.uuidv4()),
-			new Node({tag:"style"}).attr('id',idutils.uuidv4()).text('*{background:#000000;color:#00FF00;}')
+	html=(new Node({tag:"html"})).append([
+		head=new Node({tag:"head"}).append([
+			new Node({tag:"meta"}).attr('charset','utf-8'),
+			new Node({tag:"style"}).text('*{background:#000000;color:#00FF00;}')
 		]),
-		new Node({tag:"body"}).append([
-			new Node({tag:'h3'}).attr('id',idutils.uuidv4()).text('lib/html/node.js test'),
-			new Node({tag:'p'}).attr('id',idutils.uuidv4()).append((function(){
-				var ret=[];
-				for(var i=0;i<128;i++){
-					ret.push(new Node({tag:"pre"}).attr('id',idutils.uuidv4()).text((function(){
-						var ret=[];
-						for(var i=0;i<64;i++){
-							ret.push(idutils.uuidv4());
-						}
-						return ret.join('\n');
-					})()));
-				}
+		body=new Node({tag:"body"}).append(
+			(function(){
+				ret=[];
+				ret.push(new Node({tag:'h3'}).text("Underscore test"));
+				_.each([1,2,3],function(val){
+					ret.push(new Node({tag:'p'}).text(val));
+				});
 				return ret;
-			})())
-		])
+			})()
+		)
 	])
-	console.timeEnd('dom building');
-	console.time('dom serialization');
 	document.write(html.toString());
-	console.timeEnd('dom serialization');
 });
