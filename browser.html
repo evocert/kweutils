@@ -8,12 +8,13 @@
 		<script>
 			try{
 				require.config({
+					"waitSeconds":0,
 					urlArgs: "cachebust="+(new Date()).getTime(),
 					paths:{
 						"db":"lib/core/db",
 						"class":"lib/core/class.goja",
 						"idutils":"lib/core/idutils",
-						"request":"lib/core/request.goja",
+						"request":"lib/core/request",
 						"console":"lib/core/console",
 						"document":"lib/core/document",
 						"alert":"lib/core/alert",
@@ -27,11 +28,18 @@
 						'underscore':'lib/vendor/underscore/underscore',
 						'html':'lib/html/html',
 						'node':'lib/html/node',
+						'canvas':'lib/html/canvas'
 					},
 					map:{
 						'*':{'jquery':'jquery-private'},
 						'jquery-private':{'jquery':'jquery'}
-					}
+					},
+					packages: [
+						{
+							name:'dojo',
+							location:'./lib/vendor/dojo/dojo'
+						}
+					]
 				});
 				var test=new URLSearchParams(window.location.search).get('test');
 				if(test!=null){
