@@ -1,0 +1,15 @@
+{
+  "name": "webamp-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "deploy": "yarn workspace webamp build && yarn workspace webamp build-library"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  },
+  "prettier": {}
+}
