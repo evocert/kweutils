@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<title>Applesoft BASIC in JavaScript</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Suppress browser compat button -->
+
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="alternate" type="application/atom+xml" href="https://github.com/inexorabletash/jsbasic/commits/master.atom">
+
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="display.css">
+
+<script src="https://cdn.rawgit.com/inexorabletash/polyfill/v0.1.29/polyfill.min.js"></script>
+<script src="https://cdn.rawgit.com/inexorabletash/polyfill/v0.1.29/keyboard.js"></script>
+
+<!-- CodeMirror syntax highlighting - this is optional -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.css">
+<script src="cm/basic.js"></script>
+<link rel="stylesheet" href="cm/basic.css">
+<style>
+.CodeMirror { border: solid 1px black; width: 598px; height: 384px; background-color: white; }
+.CodeMirror-scroll { height: 100%; }
+</style>
+
+<h1>Applesoft BASIC in Javascript</h1>
+<p>
+By <a target=_blank href="mailto:inexorabletash@gmail.com">Joshua Bell</a>
+| <a target="_blank" href="https://github.com/inexorabletash/jsbasic/">Source</a>
+| <a target="_blank" href="https://github.com/inexorabletash/jsbasic/blob/master/README.md">README</a>
+&mdash; <a target="_blank" href="reference.html">Applesoft BASIC Quick Reference</a>
+
+<p>Related projects:
+   <a href="../jslogo">Logo in Javascript</a>
+ | <a href="https://a2stuff.github.io/vnIIc">Streaming video to an Apple II - vnIIc</a>
+</p>
+
+<br style="clear: both;">
+
+<!-- Screen -->
+<div id="frame" class="jsb-frame" style="float: left; margin: 5px;" tabIndex="0">
+  <div id="screen-wrapper" class="jsb-wrapper">
+    <div id="lores" class="jsb-lores"></div>
+    <canvas id="hires" width="560" height="384" class="jsb-hires"></canvas>
+    <canvas id="hires2" width="560" height="384" class="jsb-hires"></canvas>
+    <div id="screen" class="jsb-tty"></div>
+  </div>
+</div>
+
+<!-- Source -->
+<div style="float: left; margin: 5px;">
+  Enter code:  &nbsp;&nbsp;
+  <button id="btn_run">&#x25B6; Run</button>
+  <button id="btn_stop" disabled>&#x25FC; Stop</button>
+
+  <select id="lb_files">
+    <option disabled selected="selected">Select a sample...</option>
+    <option value="sample.basic">DEMOS</option>
+
+    <option disabled>____________________________________________</option>
+    <option disabled>Tests</option>
+    <option value="sample.unittests">&nbsp; Unit Tests</option>
+    <option value="sample.keyboard">&nbsp; Keyboard Test</option>
+    <option value="sample.charset">&nbsp; Charset Test</option>
+
+
+    <option disabled>____________________________________________</option>
+    <option disabled>Games</option>
+
+    <option value="simple.pong">&nbsp; SIMPLE.PONG</option>
+    <option value="sample.adventure">&nbsp; Text Adventure (Floyd McWilliams)</option>
+    <option value="sample.pacman">&nbsp; (Not Really) ASCII Pac-Man (Michael Kemp)</option>
+    <option value="sample.puzzler">&nbsp; Puzzler (Gregg Buntin)</option>
+    <option value="sample.hangman">&nbsp; Hangman (Mike Gleason)</option>
+    <option value="sample.raindrops">&nbsp; Catch the Raindrop (Nicholas Merchant)</option>
+    <option value="sample.jot">&nbsp; JOT (Mike Gleason)</option>
+    <option value="sample.miniindy">&nbsp; Mini Indy (Gregg Buntin)</option>
+    <option value="sample.doordetector">&nbsp; Door Detector (Jeff)</option>
+    <option value="sample.columns">&nbsp; Columns (Arthur Allen)</option>
+    <option value="sample.tetris">&nbsp; Tetris (Arthur Allen)</option>
+    <option value="sample.dicegame">&nbsp; Colorful Dice (Gregory Lewis)</option>
+    <option value="sample.dicegame">&nbsp; Unfinished Maze (Alexander G. Tozzi)</option>
+    <option value="sample.dragonsmaze">&nbsp; Dragon's Maze (Russell Hokanson)</option>
+    <option value="sample.blackhole">&nbsp; Black Hole Maze (S.M.Compton c/o Melody Ayres-Griffiths)</option>
+    <option value="sample.chase">&nbsp; Chase (Dominik Heidler)</option>
+    <option value="sample.spaceattack">&nbsp; Space Attack! (Alan Ratliff)</option>
+
+    <option disabled>____________________________________________</option>
+    <option disabled>Graphics</option>
+
+    <option value="sample.rodscolorpattern">&nbsp; Rod's Color Pattern</option>
+    <option value="sample.hacker">&nbsp; Hacker Logo (markwstock)</option>
+    <option value="sample.loreswalk">&nbsp; Random LoRes (John Melesky)</option>
+    <option value="sample.hireswalk">&nbsp; Random HiRes (John Melesky)</option>
+    <option value="sample.sierpinski">&nbsp; Sierpinski Triangles (Kevin Miller)</option>
+    <option value="sample.stringart">&nbsp; String Art (Chris Heric)</option>
+    <option value="sample.paint">&nbsp; Drawing Program (Brian Broker)</option>
+    <option value="sample.scribble">&nbsp; Scribble (William Simms)</option>
+    <option value="sample.connections">&nbsp; Connections (Gregg Buntin)</option>
+    <option value="sample.squiggle">&nbsp; Squiggle (Gregg Buntin)</option>
+    <option value="sample.boys_surface">&nbsp; Boy's Surface (Lukas Innig)</option>
+    <option value="sample.gaussian">&nbsp; Gaussian Distribution 2D (John Russ)</option>
+    <option value="sample.bitmaps">&nbsp; Bitmap Images (Brian Broker)</option>
+    <option value="sample.mandelbrot">&nbsp; Mandelbrot Set (c/o Gregory Lewis)</option>
+    <option value="sample.mandelbrot2">&nbsp; Mandelbrot Set in Color</option>
+    <option value="sample.steve">&nbsp; Steve (Nicola Foggi)</option>
+    <option value="sample.logo">&nbsp; Apple Logo (Brendan Robert)</option>
+    <option value="sample.loresdrawing">&nbsp; Graphics Drawing (Gregg Buntin)</option>
+    <option value="sample.calculatedimage">&nbsp; Calculated Image (Gregg Buntin)</option>
+    <option value="sample.xmastree">&nbsp; Christmas Tree (Gregg Buntin and Rich Orde)</option>
+    <option value="sample.snowflakes">&nbsp; Snowflakes (Kevin Riordan)</option>
+    <option value="sample.ninjaturtle">&nbsp; Ninja Turtle (Chris Whong)</option>
+
+    <option value="sample.3dhat">&nbsp; 3D Hat (Micro, the 6502 magazine, may 1981 c/o Golden Child)</option>
+    <option value="sample.dbconverge">&nbsp; Double-Buffered Value Convergence (Golden Child)</option>
+    <option value="sample.dbpendulum">&nbsp; Double-Buffered Physics Pendulum Simulation (Golden Child)</option>
+    <option value="sample.dbvectorship">&nbsp; Double-Buffered Asteroids Ship Demo (Golden Child)</option>
+    <option value="sample.dbvectortext">&nbsp; Double-Buffered Vector Font (Golden Child)</option>
+    <option value="sample.stellar7">&nbsp; STELLAR 7 Rotate 3d Objects (Golden Child)</option>
+    <option value="sample.functiongraphing">&nbsp; Function Graphing (Golden Child)</option>
+
+    <option value="sample.coloredserpinski">&nbsp; Colored Serpinski Triangles (Gregory Lewis)</option>
+    <option value="sample.radar">&nbsp; Radar (Josiah Keller)</option>
+    <option value="sample.moire">&nbsp; Moiré (Sylvie Breaud)</option>
+    <option value="sample.jobs">&nbsp; Steve Jobs (Nick McMillen / CJBaird)</option>
+    <option value="sample.dye">&nbsp; Will You Dye (Brett Edwards)</option>
+    <option value="sample.pretzel">&nbsp; Pretzel (Zee)</option>
+    <option value="sample.3dcube">&nbsp; 3D Rectangle (Tomo Wa)</option>
+    <option value="sample.enterprise">&nbsp; Original Series Enterprise (Gil Keidar)</option>
+    <option value="sample.colorrings">&nbsp; Colored Rings (Miika Oja)</option>
+
+    <option disabled>____________________________________________</option>
+    <option disabled>Other</option>
+
+    <option value="sample.primes">&nbsp; Prime Sieve (Kevin Miller)</option>
+    <option value="sample.february">&nbsp; February Surprise (Antti Pirskanen)</option>
+    <option value="sample.hellosine">&nbsp; Hello World Sine Wave (Jamie Beu)</option>
+    <option value="sample.bodymass">&nbsp; Body Mass Index Calculator (Tim Dwyer)</option>
+    <option value="sample.quine">&nbsp; Quine (Nikolay Mirin)</option>
+    <option value="sample.10print">&nbsp; 10 PRINT MAZE (translated by Rich Hanes)</option>
+    <option value="sample.primecheck">&nbsp; Prime Check (Tony Hill)</option>
+    <option value="sample.vdt">&nbsp; Velocity/Distance/Time (feman1977)</option>
+    <option value="sample.protonelectron">&nbsp; Proton/Electron Mass Ratio (Mark Rohrbaugh)</option>
+    <option value="sample.onelinetrain">&nbsp; One Liner Train (Chris ten Den)</option>
+    <option value="sample.piglatin">&nbsp; Pig Latin Translator (Gregg Buntin)</option>
+    <option value="sample.nuclear">&nbsp; Nuclear Power Plant (Stephen R. Berggren c/o Kevin Riggle)</option>
+    <option value="sample.factors">&nbsp; Prime Factors (Cristiano Trabuio)</option>
+
+    <option disabled>____________________________________________</option>
+    <option disabled>Traveller RPG Utilities</option>
+
+    <option value="TRADER C">&nbsp; TRADER</option>
+    <option value="sample.sectorgen">&nbsp; Traveller Sector Generator</option>
+    <option value="sample.zhorelay">&nbsp; Zhodani Relay Station Placement</option>
+    <option value="sample.readsector">&nbsp; Read Sector File</option>
+  </select>
+
+  <!-- Source code editor inserted here -->
+  <div id="editorframe"></div>
+
+  <form id="submission" method="post" enctype="text/plain" action="mailto:inexorabletash@gmail.com?subject=Applesoft%20Sample%20Submission" target=_blank>
+  <textarea name="source" id="source" style="display: none;">
+  </textarea>
+
+  <button id="btn_save" title="Save as a file">&#x1F4BE; Save</button>
+  <button id="btn_load" title="Load a file">&#x1F4C2; Load</button>
+  <button id="btn_share" title="Share by email">&#x1F4E9; Share</button>
+
+  <button id="show_paper" title="Echo all output to a &quot;print-out&quot;, so you can copy/paste">&#x1F4C3; Show output</button>
+  <button id="hide_paper" title="Hide the &quot;print-out&quot;">&#x1F6AB; Hide output</button>
+  </form>
+
+</div>
+
+<br style="clear: both;">
+
+<h3 id="links">Links</h3>
+<ul>
+  <li>
+    Real emulators in JavaScript:
+    <a target="_blank" href="http://www.scullinsteel.com/apple2/">Apple IIjs</a>,
+    <a target="_blank" href="http://www.scullinsteel.com/apple//e">Apple //jse</a>,
+    <a target="_blank" href="http://www.megidish.net/apple2js/">Apple2JS</a>,
+    and
+    <a target="_blank" href="https://github.com/nicholasbs/appletoo">many</a>
+    <a target="_blank" href="http://porkrind.org/a2/">more</a>
+
+
+  <li><a target="_blank" href="http://www.6502asm.com/">6502asm.com</a> - a 6502 assembler/emulator in JavaScript
+  <li><a target="_blank" href="http://www.quitebasic.com/">Quite BASIC</a> - a similar project aimed at teaching programming
+</ul>
+
+<div id="paper-spacer"></div>
+<div id="paper"></div>
+
+
+<script src="basic.js?2012-02-08"></script>
+<script src="bell.js"></script>
+<script src="tty.js"></script>
+<script src="lores.js"></script>
+<script src="hires.js"></script>
+<script src="dos.js"></script>
+<script src="printer.js"></script>
+<script src="index.js"></script>
