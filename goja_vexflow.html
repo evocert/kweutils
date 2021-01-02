@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Requirejs Excecise</title>
+		<link rel="stylesheet" href="css/style.css"/>
+		<script src="./lib/vendor/requirejs/require.js"></script>
+	</head>
+	<body>
+		<script>
+			require(["./lib/config"],function(){
+				require(["jquery"],function(jq){
+					$=jq;
+					$.ajax({
+						url:"./lib/init.goja.js?action=runtest&parameters=vexflow",
+						dataType:'html',
+						type:'GET',
+						success:function(data){		
+							console.log(data);
+							$('body').prepend(data);
+							$('svg').css({width:'100%',height:'100%'});
+							$('html').css({width:'100%',height:'100%'});
+							$('body').css({width:'100%',height:'100%'});
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

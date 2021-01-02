@@ -1,0 +1,117 @@
+.scribe-header,
+.scribe-footer,
+.scribe-svg {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.scribe-header,
+.scribe-footer {
+	font-family: 'jazztextregular', cursive;
+	padding-top: 1.5rem;
+}
+
+.scribe-header a,
+.scribe-footer a {
+	color: #FE337E;
+}
+
+.scribe-header > .scribe-title,
+.scribe-header > .scribe-composer,
+.scribe-header > .scribe-part {
+	display: inline-block;
+	position: relative;
+}
+
+.scribe-header > .scribe-title {
+	left: 20%;
+	width: 60%;
+	margin-right: -60%;
+	text-align: center;
+}
+
+.scribe-header > .scribe-composer,
+.scribe-header > .scribe-part {
+	width: 20%;
+	margin-right: -20%;
+}
+
+.scribe-header > .scribe-composer {
+	left: 2%;
+	text-align: left;
+}
+
+.scribe-header > .scribe-part {
+	left: 78%;
+	text-align: right;
+}
+
+.scribe-footer {
+	
+	padding-left: 2%;
+	padding-right: 2%;
+}
+
+.scribe-title {
+	font-size: 2.5rem;
+}
+
+.scribe-composer {
+	font-size: 1.25rem;
+}
+
+.scribe-part {
+	font-size: 1.25rem;
+}
+
+.scribe-note,
+.scribe-tail,
+.scribe-clef,
+.scribe-rest,
+.scribe-beam,
+.scribe-symbol,
+.scribe-accidental {
+	fill: black;
+	stroke: none;
+}
+
+.scribe-note:hover {
+	fill: red;
+	cursor: pointer;
+}
+
+.scribe-stave {
+	fill: none;
+	stroke: black;
+	stroke-width: 0.1;
+	stroke-linejoin: round;
+	stroke-miterlimit: 10;
+}
+
+.scribe-barline {
+	fill: black;
+	stroke: black;
+	stroke-width: 0.2125;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-miterlimit: 10;
+}
+
+.scribe-endline {
+	stroke: black;
+	stroke-width: 0.8;
+	stroke-linecap: butt;
+	stroke-linejoin: butt;
+}
+
+.scribe-stalk {
+	stroke: black;
+	stroke-width: 0.3;
+	stroke-linecap: butt;
+}
+
+.scribe-chord {
+	font-family: 'chords', cursive;
+	font-size: 33%;
+}
