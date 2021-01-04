@@ -9,6 +9,6 @@ require([
 			jq,
 		){
 		$=jq;
-		$('body').append($('<div id="container">Loading...</div>'));
+		$('body').append($('<div id="container">Template</div>'));
 	});
 });
