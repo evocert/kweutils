@@ -1,0 +1,31 @@
+define([
+	'module',
+	'jquery',
+	'./lib/a.js',
+	'css!'+window.location.pathname.substring(0,window.location.pathname.lastIndexOf('/'))+'/css/style.css'],
+function(
+	module,
+	jq,
+	liba,
+){
+	$=jq;
+	$.ajax(
+		{
+			type:"POST",
+			url:"./srv/index.js",
+			contentType:"application/json",
+			data:JSON.stringify({
+				"some":"args",
+			}),
+			dataType:"text",
+			success:$.proxy(function(data){
+				$("body").html(data);
+			},this),
+			fail:$.proxy(function(err){
+			},this),
+			always:$.proxy(function(){
+			},this)
+		}
+	);
+});
+

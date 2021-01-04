@@ -1,0 +1,17 @@
+define([
+"module"
+],function(module){
+		var ui=Ui.getInstance();
+		ui.mkwin({
+			//fullscreen:true,
+                	iframesrc:[module.uri.substring(0,module.uri.lastIndexOf('/')),'index.html'].join('/'),
+			headerTitle:module.id.split('/')[module.id.split('/').length-2],
+			x:20,
+			y:20,
+			width:'530px',
+			height:'180px',
+			onclosed:function(){},
+			callback:function(panel){
+			}
+		});
+});
