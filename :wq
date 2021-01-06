@@ -1,0 +1,17 @@
+//https://brython.info/static_tutorial/en/index.html
+//https://github.com/brython-dev/brython
+define([
+	"module",
+	"brython",
+	//"brython_stdlib",
+],function(
+	module,
+	brython
+){
+	console.log([module.id,'start'].join(':'));
+	console.log(brython);//__BRYTHON__
+	eval(brython.python_to_js(`
+		from browser import document
+		document <= "Hello !"
+	`));
+});
