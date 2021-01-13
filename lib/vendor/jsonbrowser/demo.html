@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>jQuery jsonbrowser.js Plugin Example</title>
+        <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="src/jquery.jsonbrowser.css" type="text/css">
+        
+        <style>
+            * { margin: 0; padding: 0; }
+            body { font-family: Arial, sans-serif; font-size: 15px; }
+            #container a { color : #fafafa; }
+            #container {
+                margin           : 150px auto 20px auto; 
+                padding          : 20px;
+                background-color : #0F88B6;
+                border           : 2px solid #eee;
+                color:#fff;
+            }
+            input { border: 1px solid #ccc; padding: 2px 4px; width: 200px; }
+            .buttons { margin : 0 0 10px 0; }
+            .buttons a { margin-right: 10px; }
+        </style>
+    </head>
+    <body><div id="jquery-script-menu">
+<div class="jquery-script-center">
+<ul>
+<li><a href="http://www.jqueryscript.net/angular-tree-dropdown-directive/">Download This Plugin</a></li>
+<li><a href="http://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
+</ul>
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+        <div id="container">
+        <h1>jQuery jsonbrowser.js Plugin Example</h1>
+            <div class="buttons">
+                <a href="#" id="collapse-all">Collapse All</a>
+                <a href="#" id="expand-all">Expand All</a>
+                <input type="text" id="search" placeholder="Search ...">
+            </div>
+            
+            <div id="browser" class="jsonbrowser"></div>
+        </div>
+        
+        <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="src/jquery.jsonbrowser.js"></script>
+        <script>
+            $(function() {
+                var movies = [
+                    {
+                        'title': 'Harold and Maude',
+                        'runtime': 91,
+                        'genres': ['Comedy', 'Drama'],
+                        'release_date': '1971-12-20',
+                        'director': 'Hal Ashby',
+                        'writer': 'Colin Higgins',
+                        'roles': {
+                            'Maude': 'Ruth Gordon',
+                            'Harold': 'Bud Cort',
+                            'Mrs. Chasen': 'Vivian Pickles',
+                            'Glaucus': 'Cyril Cusack'
+                        },
+                        'imdb_url': 'http://www.imdb.com/title/tt0067185/'
+                    },
+                    {
+                        'title': 'Garden State',
+                        'runtime': 102,
+                        'genres': ['Comedy', 'Drama', 'Romance'],
+                        'release_date': '2004-09-22',
+                        'director': 'Zach Braff',
+                        'writer': 'Zach Braff',
+                        'roles': {
+                            'Andrew Largeman': 'Zach Braff',
+                            'Gideon Largeman': 'Ian Holm',
+                            'Sam': 'Natalie Portman',
+                            'Mark': 'Peter Sarsgaard',
+                        },
+                        'imdb_url': 'http://www.imdb.com/title/tt0333766/'
+                    }
+                ];
+                
+                // or: var movies = JSON.stringify(movies);
+                
+                $('#browser').jsonbrowser(movies);
+                
+                $('#collapse-all').on('click', function(e) {
+                    e.preventDefault();
+                    $.jsonbrowser.collapseAll('#browser');
+                });
+                
+                $('#expand-all').on('click', function(e) {
+                    e.preventDefault();
+                    $.jsonbrowser.expandAll('#browser');
+                });
+
+                $('#search').on('keyup', function(e) {
+                    e.preventDefault();
+                    $.jsonbrowser.search('#browser', $(this).val());
+                });
+                $('#search').focus().trigger('keyUp');
+            });
+        </script><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+    </body>
+</html>
