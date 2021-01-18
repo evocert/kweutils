@@ -1,0 +1,5 @@
+≈ 700 byte* polyfill for browsers which don't provide window.btoa and window.atob.
+
+Base64.js stems from a gist by yahiko.
+
+https://github.com/davidchambers/Base64.js

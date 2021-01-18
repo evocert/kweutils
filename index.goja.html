@@ -1,4 +1,18 @@
 <@
+//var src=_scriptinclude("http://127.0.0.1:1030/kweutils/index.html");
+//var src=_scriptinclude('../dat/a.txt');
+//var src=_scriptinclude("index.html");
+//var src=_scriptinclude("./lib/vendor/requirejs/require.evocert.js");
+//var src=_scriptinclude("/dat/a.txt");
+//var src=_scriptinclude('../dat/a.txt');
+//var src=_scriptinclude("./lib/config.goja.js");
+//println(typeof(src));
+//println(src);
+//println(typeof(require));
+require=null;
+requirejs=null;
+define=null;
+eval(fsutils.File2String("./www/kweutils/lib/vendor/requirejs/require.evocert.js"));
 	//vdom
 	var GOJA={};
 	var document=null;
@@ -11,6 +25,9 @@
 		configpath.push('lib');
 		configpath.push('config.goja');
 		configpath=configpath.join("/");
+		configpath="www/kweutils/lib/config.goja"
+		configpath="lib/config.goja";
+		println(configpath);
 		//bootstrap
 		require([configpath],function(console){
 			require(["app/main.goja"],function(){});
@@ -18,4 +35,6 @@
 	}catch(e){
 		println(e.toString());//console.log(e.toString());
 	}
+/*
+*/
 @>
