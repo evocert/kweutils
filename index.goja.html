@@ -10,14 +10,15 @@ eval(fsutils.File2String("./www/kweutils/lib/vendor/requirejs/require.evocert.js
 	try{
 		//portability
 		var configpath=action().Path().substring(1).split('/');
-		configpath.pop();
-		configpath.unshift('www');
-		configpath.push('lib');
-		configpath.push('config.goja');
-		configpath=configpath.join("/");
-		configpath="www/kweutils/lib/config.goja"
-		configpath="lib/config.goja";
+		//configpath.pop();
+		//configpath.unshift('www');
+		//configpath.push('lib');
+		//configpath.push('config.goja');
+		//configpath=configpath.join("/");
+		//configpath="www/kweutils/lib/config.goja"
+		//configpath="/kweutils/lib/config.goja.js";
 		//bootstrap
+		configpath="./lib/config.goja.js";
 		require([configpath],function(console){
 			require(["app/main.goja"],function(){});
 		});
