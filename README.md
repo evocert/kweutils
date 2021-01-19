@@ -1,7 +1,11 @@
 # KWEUTILS
 
-Test invocation
+## Configuration
+```
+resourcing.RegisterEndpoint("/master","https://raw.githubusercontent.com/evocert/kweutils/main/");
+```
 
-http://localhost:1030/kweutils/lib/init.goja.js?action=runtest&parameters=d3
-
-http://localhost:1030/kweutils/index.html?action=runtest&parameters=d3
+## Test
+```
+http://localhost:1030/master/index.html?action=runtest&parameters=websocket
+```
