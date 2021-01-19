@@ -1,0 +1,11 @@
+<@
+println("start");
+try{
+	fsutilcode=_scriptinclude("/kweutils/lib/goja/pathutils.js");
+	//println(fsutilcode);
+	_parseEval(fsutilcode);
+}catch(e){
+	println(e.toString());
+};
+println("end");
+@>
