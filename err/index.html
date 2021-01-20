@@ -1,0 +1,65 @@
+<@
+console.Log("index.html:start");
+println("index.html:start");
+//--------------------------------------------------------------------------------
+requirejs.config({
+	"waitSeconds":0,
+	"baseUrl":"/kweutils/err/lib/",
+	"paths":{
+		"synthetic_m0":"synthetic/m0",
+		"synthetic_m1":"synthetic/m1",
+		"synthetic_m2":"synthetic/m2",
+		"synthetic_m3":"synthetic/m3",
+		"keyword_m0":"keyword/m0",
+		"keyword_m1":"keyword/m1",
+		"keyword_m2":"keyword/m2",
+		"keyword_m3":"keyword/m3"
+	},
+	"packages":[],
+	"config":{},
+	"map":{},
+	"shim": {
+		"synthetic_m0":{"deps":[]},
+		"synthetic_m1":{"deps":[]},
+		"synthetic_m2":{"deps":[]},
+		"synthetic_m3":{"deps":[]},
+		"keyword_m0":{"deps":[]},
+		"keyword_m1":{"deps":[]},
+		"keyword_m2":{"deps":[]},
+		"keyword_m3":{"deps":[]}
+
+	},
+	"deps":[]
+});
+//--------------------------------------------------------------------------------
+require([
+	"synthetic_m0"
+],function(
+	s0
+){
+	require([
+		"synthetic_m1"
+	],function(
+		s1
+	){
+		require([
+			"synthetic_m2"
+		],function(
+			s2,
+		){
+			require([
+				"keyword_m0"
+			],function(
+				k0,
+			){
+			});
+
+
+		});
+	});
+
+});
+//--------------------------------------------------------------------------------
+console.Log("index.html:end");
+println("index.html:end");
+@>
