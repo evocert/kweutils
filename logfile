@@ -1,0 +1,2 @@
+2021-01-27 02:21:13.481 PST [15442] FATAL:  data directory "/mnt/c/tmp/www/kweutils/./db" has group or world access
+2021-01-27 02:21:13.481 PST [15442] DETAIL:  Permissions should be u=rwx (0700).
