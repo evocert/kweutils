@@ -4,7 +4,8 @@ require.config({
 	useParseEval:false
 });
 require([
-	"./b.js"
+	//"./b.js"
+	"/kweutils/parseeval_toets/b.js"
 ],function(
 	b
 ){

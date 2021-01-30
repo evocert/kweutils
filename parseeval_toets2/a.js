@@ -1,3 +1,4 @@
+
 <@
 println('a.js:start');
 require.config({
@@ -5,6 +6,7 @@ require.config({
 });
 require([
 	"./b.js"
+	//"/kweutils/parseeval_toets2/b.js"
 ],function(
 	b
 ){
