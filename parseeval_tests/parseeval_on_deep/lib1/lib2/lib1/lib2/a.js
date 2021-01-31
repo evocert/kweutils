@@ -1,0 +1,10 @@
+define([
+	"module",
+	"./lib0/b.js"
+],function(
+	module,
+	lib0a
+){
+	println("module.id:"+module.id);
+	println("module.uri:"+module.uri);
+});

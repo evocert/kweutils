@@ -1,0 +1,13 @@
+<@
+require.config({
+	useParseEval:false
+});
+require([
+	"./b.js"
+	//"/kweutils/parseeval_toets/b.js"
+],function(
+	b
+){
+	println('a.js:cb');
+});
+@>

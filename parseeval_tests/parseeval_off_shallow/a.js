@@ -1,11 +1,11 @@
+
 <@
 println('a.js:start');
 require.config({
 	useParseEval:false
 });
 require([
-	//"./b.js"
-	"/kweutils/parseeval_toets/b.js"
+	"./b.js"
 ],function(
 	b
 ){
