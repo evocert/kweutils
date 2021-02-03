@@ -1,0 +1,59 @@
+*{
+	/*font-family:'04B_03__';*/
+	color:#FFFFFFCC!important;
+}
+.dx-cli{
+	/*font-family:'04B_03__'!important;;*/
+	color:#FFFFFFCC!important;
+	background: #3e3e3e;
+	border: 0px none;
+	color: rgb(255, 255, 255);
+	height: 28px;
+	margin-top: 5px;
+	padding-left: 8px;
+}
+.dx-widget.dx-filemanager-breadcrumbs,
+.dx-datagrid-headers.dx-datagrid-nowrap{
+  background:#464646;
+  border:0px!important;;
+}
+.dx-filemanager .dx-filemanager-breadcrumbs .dx-filemanager-breadcrumbs-separator-item .dx-menu-item-content {
+  background:#464646;
+}
+
+.dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-row-lines) > td, .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-row-lines) > tr:first-child > td {
+    border-top: 1px solid #ff7800;
+    border-bottom: 1px solid #ff7800;
+}
+.dx-datagrid-rowsview .dx-row-focused.dx-data-row .dx-command-edit:not(.dx-focused) .dx-link, .dx-datagrid-rowsview .dx-row-focused.dx-data-row > td:not(.dx-focused), .dx-datagrid-rowsview .dx-row-focused.dx-data-row > tr > td:not(.dx-focused) {
+    background-color: #ff7800;
+    color: #2a2a2a;
+}
+
+
+
+.form-control{
+  border-radius:0px!important;
+  border:unset;
+}
+.btn{
+  border:unset!important;;
+  background:#FFFFFF11!important;;  
+}
+
+.jsPanel-titlebar {
+  font-size: 1.0rem!important;
+}
+.jsPanel-ftr{
+	background:#212121!important;
+}
+.alert{
+	padding: 4px;
+	border-bottom: unset;
+	border-radius: 0px;
+	font-weight: bold;
+}
+.alert-danger{
+	background-color: #822;
+	color: #C88;
+}
